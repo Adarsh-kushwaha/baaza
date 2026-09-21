@@ -168,14 +168,14 @@ function FloatingChrome({ card }: { card: PlaylistCard }) {
     else router.replace("/home");
   };
 
-  const fade = `transition-opacity duration-200 ease-app ${idle ? "opacity-35" : "opacity-100"}`;
+  const fade = `transition-opacity duration-200 ease-app ${idle ? "opacity-60" : "opacity-100"}`;
   return (
     <>
       <button
         type="button"
         onClick={back}
         aria-label="Back to Baaza"
-        className={`pressable fixed left-3 top-[calc(env(safe-area-inset-top)+12px)] z-50 grid h-10 w-10 place-items-center rounded-pill bg-black/45 backdrop-blur-md ${fade}`}
+        className={`pressable fixed left-3 top-[calc(env(safe-area-inset-top)+12px)] z-50 grid h-10 w-10 place-items-center rounded-pill bg-black/75 shadow-lg ring-1 ring-white/15 backdrop-blur-md ${fade}`}
       >
         <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M15 5l-7 7 7 7" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
@@ -185,6 +185,7 @@ function FloatingChrome({ card }: { card: PlaylistCard }) {
         slug={card.slug}
         title={card.title}
         size="md"
+        variant="floating"
         className={`fixed right-3 top-[calc(env(safe-area-inset-top)+12px)] z-50 ${fade}`}
       />
     </>

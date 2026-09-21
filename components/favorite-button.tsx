@@ -7,8 +7,8 @@ type FavoriteButtonProps = {
   title: string;
   className?: string;
   size?: "sm" | "md";
-  /** `overlay` sits on cover art; `plain` sits on the page background. */
-  variant?: "overlay" | "plain";
+  /** `overlay` sits on cover art; `floating` over a playing site; `plain` on the page background. */
+  variant?: "overlay" | "floating" | "plain";
 };
 
 export function FavoriteButton({ slug, title, className = "", size = "sm", variant = "overlay" }: FavoriteButtonProps) {
@@ -16,7 +16,11 @@ export function FavoriteButton({ slug, title, className = "", size = "sm", varia
   const active = favorites?.includes(slug) ?? false;
   const box = size === "sm" ? "h-8 w-8" : "h-10 w-10";
   const icon = size === "sm" ? 16 : 20;
-  const surface = variant === "overlay" ? "bg-black/45 backdrop-blur-md" : "";
+  const surface = {
+    overlay: "bg-black/45 backdrop-blur-md",
+    floating: "bg-black/75 shadow-lg ring-1 ring-white/15 backdrop-blur-md",
+    plain: "",
+  }[variant];
 
   return (
     <button

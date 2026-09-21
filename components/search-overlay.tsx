@@ -44,7 +44,7 @@ export function SearchOverlay({ initialQuery = "", onClose }: SearchOverlayProps
     >
       <form
         role="search"
-        className="flex items-center gap-2 px-3 py-2"
+        className="flex items-center gap-3 px-4 pb-3 pt-3"
         onSubmit={(e) => {
           e.preventDefault();
           addRecentSearch(query);
@@ -73,7 +73,7 @@ export function SearchOverlay({ initialQuery = "", onClose }: SearchOverlayProps
           type="button"
           onClick={onClose}
           aria-label="Close search"
-          className="pressable grid h-9 w-9 shrink-0 place-items-center rounded-pill text-text-dim"
+          className="pressable -mr-2 grid h-9 w-9 shrink-0 place-items-center rounded-pill text-text-dim"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
