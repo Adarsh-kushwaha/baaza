@@ -127,8 +127,8 @@ export function frameUrl(card: Pick<PlaylistCard, "url">): string {
   return card.url.replace(/^http:\/\//, "https://");
 }
 
-/** The maker's own playlists: featured at the top of Home and pinned in My Playlists. */
-const FEATURED_SLUGS = ["raju-mistri", "deluxe-salon"];
+/** Featured at the top of Home and pinned in My Playlists. */
+const FEATURED_SLUGS = ["raju-mistri", "deluxe-salon", "hornokplease"];
 
 export const featuredCards: readonly PlaylistCard[] = FEATURED_SLUGS.map((slug) => {
   const card = bySlug.get(slug);

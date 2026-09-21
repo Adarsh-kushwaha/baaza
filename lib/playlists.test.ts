@@ -179,7 +179,7 @@ describe("maker's playlists", () => {
 
 describe("featuredCards", () => {
   it("features the maker's playlists, in order, all live", () => {
-    expect(featuredCards.map((c) => c.slug)).toEqual(["raju-mistri", "deluxe-salon"]);
+    expect(featuredCards.map((c) => c.slug)).toEqual(["raju-mistri", "deluxe-salon", "hornokplease"]);
     for (const card of featuredCards) expect(card.status).toBe("live");
   });
 });

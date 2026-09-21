@@ -20,7 +20,7 @@ export function LibraryScreen() {
       {featuredCards.length > 0 && (
         <section aria-labelledby="pinned-heading" className="mt-4">
           <h2 id="pinned-heading" className="px-4 text-xs font-semibold uppercase tracking-wide text-text-dim">
-            From the maker
+            Featured
           </h2>
           <ul className="mt-1">
             {featuredCards.map((card) => (

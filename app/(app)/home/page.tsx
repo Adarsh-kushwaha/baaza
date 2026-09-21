@@ -28,11 +28,12 @@ export default function HomePage() {
 
       <InstallBar />
 
-      <section aria-labelledby="featured-heading" className="mt-6 px-4">
-        <h2 id="featured-heading" className="text-xl font-semibold tracking-tight">
+      <section aria-labelledby="featured-heading" className="mt-6">
+        <h2 id="featured-heading" className="px-4 text-xl font-semibold tracking-tight">
           Featured
         </h2>
-        <div className="mt-3 grid grid-cols-2 gap-3 sm:max-w-2xl">
+        {/* `relative` keeps the scrolled-out tiles from widening the page on mobile. */}
+        <div className="no-scrollbar relative mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1">
           {featuredCards.map((card) => (
             <FeaturedCard key={card.slug} card={card} />
           ))}
