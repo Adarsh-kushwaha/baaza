@@ -42,7 +42,17 @@ export function SettingsScreen() {
       </ul>
 
       <section className="mt-10 text-sm text-text-dim">
-        <p>Baaza v{process.env.NEXT_PUBLIC_APP_VERSION}</p>
+        <p>
+          Baaza v{process.env.NEXT_PUBLIC_APP_VERSION} · Made by{" "}
+          <a
+            href="https://github.com/Adarsh-kushwaha/baaza"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-text underline-offset-2 hover:underline"
+          >
+            Adarsh
+          </a>
+        </p>
         <p className="mt-2">
           Every playlist here is made and hosted by its creator. Baaza only opens their sites — thank you to all {creators.length}{" "}
           of them.
