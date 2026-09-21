@@ -1513,5 +1513,20 @@
     "status": "live",
     "image": "raksha-bandhan.png",
     "embeddable": true
+  },
+  {
+    "id": 103,
+    "slug": "raju-mistri",
+    "title": "राजू मिस्त्री की प्लेलिस्ट",
+    "titleEn": "Raju Mistri Ki Playlist",
+    "description": "Wahi gaane jo har construction site pe bajte hain - 200 verified 90s dard songs, non-stop.",
+    "url": "https://rajumistriplaylist.com/",
+    "domain": "rajumistriplaylist.com",
+    "category": "Shops & Addas",
+    "creator": "Adarsh",
+    "creatorUrl": "https://github.com/Adarsh-kushwaha",
+    "status": "live",
+    "image": "raju-mistri.jpg",
+    "embeddable": true
   }
 ]

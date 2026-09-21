@@ -22,9 +22,9 @@ describe("cardsByCategory", () => {
 describe("catalogue coverage", () => {
   it("puts every card in exactly one rail with the expected counts", () => {
     const counts = [...cardsByCategory.values()].map((cards) => cards.length);
-    expect(counts).toEqual([27, 19, 16, 10, 8, 6, 6, 5, 4]);
+    expect(counts).toEqual([27, 20, 16, 10, 8, 6, 6, 5, 4]);
     expect(counts.reduce((a, b) => a + b, 0)).toBe(allCards.length);
-    expect(allCards).toHaveLength(101);
+    expect(allCards).toHaveLength(102);
   });
 
   it("has unique slugs", () => {
@@ -161,5 +161,15 @@ describe("frameUrl", () => {
 
   it("leaves https urls alone", () => {
     expect(frameUrl({ url: "https://chaitapri.vercel.app/" })).toBe("https://chaitapri.vercel.app/");
+  });
+});
+
+describe("Raju Mistri Ki Playlist", () => {
+  it("is in the catalogue, embeddable, and findable by either title", () => {
+    const card = getCardBySlug("raju-mistri");
+    expect(card?.category).toBe("Shops & Addas");
+    expect(card?.embeddable).toBe(true);
+    expect(searchCards("raju mistri").map((c) => c.slug)).toContain("raju-mistri");
+    expect(searchCards("राजू").map((c) => c.slug)).toContain("raju-mistri");
   });
 });
