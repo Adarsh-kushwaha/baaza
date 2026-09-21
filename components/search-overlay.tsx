@@ -44,15 +44,15 @@ export function SearchOverlay({ initialQuery = "", onClose }: SearchOverlayProps
     >
       <form
         role="search"
-        className="flex items-center gap-3 p-3"
+        className="flex items-center gap-2 px-3 py-2"
         onSubmit={(e) => {
           e.preventDefault();
           addRecentSearch(query);
           inputRef.current?.blur();
         }}
       >
-        <label className="flex flex-1 items-center gap-2 rounded-card bg-surface-hi px-3">
-          <SearchIcon className="shrink-0 text-text-dim" />
+        <label className="flex h-9 flex-1 items-center gap-2 rounded-pill bg-surface-hi px-3">
+          <SearchIcon className="h-4 w-4 shrink-0 text-text-dim" />
           <span className="sr-only">Search playlists</span>
           <input
             ref={inputRef}
@@ -64,12 +64,20 @@ export function SearchOverlay({ initialQuery = "", onClose }: SearchOverlayProps
             spellCheck={false}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="What do you want to listen to?"
-            className="h-11 min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-text-dim"
+            placeholder="Search playlists"
+            // 16px keeps iOS from zooming in on focus.
+            className="search-input h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none placeholder:text-text-dim"
           />
         </label>
-        <button type="button" onClick={onClose} className="pressable text-[15px] font-semibold">
-          Cancel
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close search"
+          className="pressable grid h-9 w-9 shrink-0 place-items-center rounded-pill text-text-dim"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+          </svg>
         </button>
       </form>
 
