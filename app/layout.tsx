@@ -18,7 +18,8 @@ export const metadata: Metadata = {
   description: "Indian internet radio, one tap away",
   applicationName: "Baaza",
   appleWebApp: { capable: true, statusBarStyle: "black-translucent", title: "Baaza" },
-  icons: { apple: "/apple-touch-icon.png" },
+  // Explicit because setting `icons` here overrides the app/icon.svg file convention.
+  icons: { icon: { url: "/icon.svg", type: "image/svg+xml" }, apple: "/apple-touch-icon.png" },
 };
 
 export const viewport: Viewport = {
