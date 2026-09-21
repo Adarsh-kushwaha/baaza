@@ -7,7 +7,14 @@ export const cardSubtitle = (card: Pick<PlaylistCard, "creator">) =>
   card.creator ? `Playlist · ${card.creator}` : "Playlist";
 
 /** Spotify-anatomy tile: square art, one-line title, dim "Playlist · @creator". */
-export function Card({ card, eager = false }: { card: PlaylistCard; eager?: boolean }) {
+type CardProps = {
+  card: PlaylistCard;
+  eager?: boolean;
+  /** Off when the same card is also shown elsewhere on the page (view-transition names must be unique). */
+  morph?: boolean;
+};
+
+export function Card({ card, eager = false, morph = true }: CardProps) {
   const text = (
     <>
       <p className="mt-2 truncate text-sm font-semibold tracking-tight">{card.title}</p>
@@ -33,7 +40,7 @@ export function Card({ card, eager = false }: { card: PlaylistCard; eager?: bool
   return (
     <div className="relative w-[150px] shrink-0 snap-start">
       <Link href={`/play/${card.slug}`} className="pressable block rounded-card">
-        <Cover card={card} sizes="150px" morph eager={eager} />
+        <Cover card={card} sizes="150px" morph={morph} eager={eager} />
         {text}
       </Link>
       <FavoriteButton slug={card.slug} title={card.title} className="absolute right-1.5 top-1.5" />

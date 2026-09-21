@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { allCards, cardsByCategory, creators, frameUrl, getCardBySlug, imageSrc, searchCards } from "./playlists";
+import { allCards, cardsByCategory, creators, featuredCards, frameUrl, getCardBySlug, imageSrc, searchCards } from "./playlists";
 
 describe("cardsByCategory", () => {
   it("orders categories biggest first", () => {
@@ -174,5 +174,12 @@ describe("maker's playlists", () => {
     expect(card?.embeddable).toBe(true);
     expect(searchCards(english).map((c) => c.slug)).toContain(slug);
     expect(searchCards(original).map((c) => c.slug)).toContain(slug);
+  });
+});
+
+describe("featuredCards", () => {
+  it("features the maker's playlists, in order, all live", () => {
+    expect(featuredCards.map((c) => c.slug)).toEqual(["raju-mistri", "deluxe-salon"]);
+    for (const card of featuredCards) expect(card.status).toBe("live");
   });
 });

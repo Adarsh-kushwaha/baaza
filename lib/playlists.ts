@@ -126,3 +126,14 @@ export const creators: readonly Creator[] = [
 export function frameUrl(card: Pick<PlaylistCard, "url">): string {
   return card.url.replace(/^http:\/\//, "https://");
 }
+
+/** The maker's own playlists: featured at the top of Home and pinned in My Playlists. */
+const FEATURED_SLUGS = ["raju-mistri", "deluxe-salon"];
+
+export const featuredCards: readonly PlaylistCard[] = FEATURED_SLUGS.map((slug) => {
+  const card = bySlug.get(slug);
+  if (!card) throw new Error(`Featured playlist "${slug}" is not in the catalogue`);
+  return card;
+});
+
+export const isFeatured = (slug: string) => FEATURED_SLUGS.includes(slug);
