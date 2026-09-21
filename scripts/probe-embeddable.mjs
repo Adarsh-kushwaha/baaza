@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Probes every live card's site for framing restrictions and stamps `embeddable`
-// (true | false | "unknown") onto each card in data/playlist_cards.json, in place.
+// Probes every live card's site over https (what the app frames) for framing restrictions
+// and stamps `embeddable` (true | false | "unknown") onto each card in
+// data/playlist_cards.json, in place.
 //
 // Run manually after adding cards:  node scripts/probe-embeddable.mjs
 // Set BAAZA_ORIGIN (e.g. https://baaza.app) to count sites whose frame-ancestors allowlist includes us.
@@ -31,16 +32,20 @@ export function verdict(headers) {
 }
 
 async function probe(card) {
+  // The app always frames the https URL; an http frame on an https page is mixed content.
+  const url = card.url.replace(/^http:\/\//, "https://");
   try {
-    const response = await fetch(card.url, {
+    const response = await fetch(url, {
       redirect: "follow",
       signal: AbortSignal.timeout(TIMEOUT_MS),
       headers: { "user-agent": "Mozilla/5.0 (compatible; BaazaEmbedProbe/1.0)" },
     });
     await response.body?.cancel();
+    if (response.status >= 500) return "unknown";
     return verdict(response.headers);
-  } catch {
-    return "unknown";
+  } catch (error) {
+    // No working https (TLS or connection failure) means the frame can never load.
+    return error.name === "TimeoutError" ? "unknown" : false;
   }
 }
 

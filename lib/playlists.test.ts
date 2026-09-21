@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { allCards, cardsByCategory, creators, getCardBySlug, imageSrc, searchCards } from "./playlists";
+import { allCards, cardsByCategory, creators, frameUrl, getCardBySlug, imageSrc, searchCards } from "./playlists";
 
 describe("cardsByCategory", () => {
   it("orders categories biggest first", () => {
@@ -150,5 +150,16 @@ describe("creators", () => {
     expect(names).toEqual(expect.arrayContaining(["@thehirenthakkar", "Vedansh Danot"]));
     expect(creators.find((c) => c.name === "@chakra5027")?.url).toBe("https://x.com/chakra5027");
     expect(names).not.toContain(null);
+  });
+});
+
+describe("frameUrl", () => {
+  it("upgrades http sites to https so the frame is not blocked as mixed content", () => {
+    expect(frameUrl({ url: "http://cuttingshop.lol" })).toBe("https://cuttingshop.lol");
+    expect(frameUrl({ url: "http://example.com/a?b=http://x" })).toBe("https://example.com/a?b=http://x");
+  });
+
+  it("leaves https urls alone", () => {
+    expect(frameUrl({ url: "https://chaitapri.vercel.app/" })).toBe("https://chaitapri.vercel.app/");
   });
 });

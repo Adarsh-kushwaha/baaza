@@ -20,14 +20,16 @@ type CoverProps = {
   className?: string;
   /** Pair this cover with the play-screen poster; only one per slug may be on screen. */
   morph?: boolean;
+  /** Load immediately: for covers visible on first paint. */
+  eager?: boolean;
 };
 
-export function Cover({ card, sizes, className = "", morph = false }: CoverProps) {
+export function Cover({ card, sizes, className = "", morph = false, eager = false }: CoverProps) {
   const src = imageSrc(card);
   const art = (
     <div className={`relative aspect-square overflow-hidden rounded-card bg-surface-hi ${className}`}>
       {src ? (
-        <Image src={src} alt="" fill sizes={sizes} className="object-cover" />
+        <Image src={src} alt="" fill sizes={sizes} loading={eager ? "eager" : "lazy"} className="object-cover" />
       ) : (
         <div className="flex h-full w-full items-end p-2" style={{ background: gradientFor(card.slug) }}>
           <span className="line-clamp-2 text-sm font-semibold leading-tight tracking-tight text-white/90">

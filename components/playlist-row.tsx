@@ -7,13 +7,15 @@ import { FavoriteButton } from "./favorite-button";
 type PlaylistRowProps = {
   card: PlaylistCard;
   onOpen?: () => void;
+  /** Morph the thumb into the play screen. Off where the same card may also be on screen. */
+  morph?: boolean;
 };
 
 /** Library/search list row: 64px thumb + two lines, ♥ on the right. */
-export function PlaylistRow({ card, onOpen }: PlaylistRowProps) {
+export function PlaylistRow({ card, onOpen, morph = true }: PlaylistRowProps) {
   const body = (
     <>
-      <Cover card={card} sizes="64px" className="w-16 shrink-0" morph={card.status === "live"} />
+      <Cover card={card} sizes="64px" className="w-16 shrink-0" morph={morph && card.status === "live"} />
       <div className="min-w-0 flex-1">
         <p className="truncate font-semibold tracking-tight">{card.title}</p>
         <p className="truncate text-sm text-text-dim">

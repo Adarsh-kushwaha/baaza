@@ -83,6 +83,9 @@ function InstallRow() {
       />
     );
   }
+  if (state === "manual") {
+    return <Row label="Add to Home Screen" detail="Open your browser menu (⋮), then “Install app” or “Add to Home screen”." />;
+  }
   return <Row label="Add to Home Screen" detail="Use your browser’s menu to install Baaza" />;
 }
 

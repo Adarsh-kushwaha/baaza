@@ -12,7 +12,7 @@
     "creatorUrl": "https://x.com/chakra5027",
     "status": "live",
     "image": "cutting-shop.jpg",
-    "embeddable": true
+    "embeddable": "unknown"
   },
   {
     "id": 2,
@@ -222,7 +222,7 @@
     "creatorUrl": "https://x.com/shntanuuhere",
     "status": "live",
     "image": "midnight-express.jpg",
-    "embeddable": "unknown"
+    "embeddable": false
   },
   {
     "id": 16,
@@ -462,7 +462,7 @@
     "creatorUrl": "https://x.com/usualTechNerd",
     "status": "live",
     "image": "humsafar-express.jpg",
-    "embeddable": true
+    "embeddable": "unknown"
   },
   {
     "id": 32,
@@ -882,7 +882,7 @@
     "creatorUrl": "https://x.com/Avichal_08",
     "status": "live",
     "image": "dhun.jpg",
-    "embeddable": true
+    "embeddable": "unknown"
   },
   {
     "id": 60,

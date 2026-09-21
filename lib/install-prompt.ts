@@ -8,10 +8,12 @@ type BeforeInstallPromptEvent = Event & {
 /**
  * - `available`: the browser handed us an install prompt to fire.
  * - `ios`: iOS Safari, which only installs via the Share sheet.
+ * - `manual`: a phone browser that gave us no prompt (e.g. not yet eligible, or plain HTTP);
+ *   the user can still install from the browser menu.
  * - `installed`: already running as an installed app.
- * - `unavailable`: nothing we can offer (unsupported browser, or prompt not yet fired).
+ * - `unavailable`: desktop with nothing to offer.
  */
-export type InstallState = "available" | "ios" | "installed" | "unavailable";
+export type InstallState = "available" | "ios" | "manual" | "installed" | "unavailable";
 
 let deferred: BeforeInstallPromptEvent | null = null;
 let justInstalled = false;
@@ -54,6 +56,7 @@ function getState(): InstallState {
   if (justInstalled || isStandalone()) return "installed";
   if (deferred) return "available";
   if (isIos()) return "ios";
+  if (window.matchMedia("(pointer: coarse)").matches) return "manual";
   return "unavailable";
 }
 

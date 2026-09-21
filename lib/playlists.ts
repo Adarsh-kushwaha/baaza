@@ -118,3 +118,11 @@ export const creators: readonly Creator[] = [
 ]
   .map(([name, url]) => ({ name, url }))
   .sort((a, b) => a.name.localeCompare(b.name));
+
+/**
+ * URL to load inside the in-app frame. Always https: an http frame on an https page is
+ * blocked as mixed content. The probe marks sites without working https as not embeddable.
+ */
+export function frameUrl(card: Pick<PlaylistCard, "url">): string {
+  return card.url.replace(/^http:\/\//, "https://");
+}

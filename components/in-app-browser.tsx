@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, ViewTransition } from "react";
 import { rememberNotEmbeddable } from "@/lib/embed-memory";
 import { hasInAppHistory } from "@/lib/nav-history";
-import { imageSrc, type PlaylistCard } from "@/lib/playlists";
+import { frameUrl, imageSrc, type PlaylistCard } from "@/lib/playlists";
 import { KEYS, parseStringArray, useStored } from "@/lib/storage";
 import { artTransitionName, gradientFor } from "./cover";
 import { FavoriteButton } from "./favorite-button";
@@ -48,7 +48,7 @@ export function InAppBrowser({ card }: { card: PlaylistCard }) {
       {showFrame && (
         <iframe
           key={card.slug}
-          src={card.url}
+          src={frameUrl(card)}
           title={card.title}
           allow="autoplay; encrypted-media; fullscreen; picture-in-picture; clipboard-write"
           referrerPolicy="no-referrer-when-downgrade"
@@ -83,7 +83,7 @@ function Poster({ card, hidden }: { card: PlaylistCard; hidden: boolean }) {
       <ViewTransition name={artTransitionName(card.slug)} share="morph" default="none">
         <div className="absolute inset-0 overflow-hidden">
           {src ? (
-            <Image src={src} alt="" fill priority sizes="100vw" className="scale-110 object-cover blur-2xl brightness-50" />
+            <Image src={src} alt="" fill preload sizes="100vw" className="scale-110 object-cover blur-2xl brightness-50" />
           ) : (
             <div className="h-full w-full brightness-75" style={{ background: gradientFor(card.slug) }} />
           )}
