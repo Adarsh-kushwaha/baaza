@@ -1,3 +1,4 @@
+import { Capacitor, registerPlugin } from "@capacitor/core";
 import { imageSrc, type PlaylistCard } from "./playlists";
 
 /**
@@ -8,6 +9,18 @@ import { imageSrc, type PlaylistCard } from "./playlists";
  * near-silent track in the top frame for as long as a player is open. It must first start
  * inside a user gesture (`primeBackgroundAudio`), after which `hold` can resume it freely.
  */
+
+/** Native side: `android/app/src/main/java/app/baaza/PlaybackPlugin.java`. Android only. */
+const Playback = registerPlugin<{
+  start(options: { title: string; artist: string }): Promise<void>;
+  stop(): Promise<void>;
+}>("Playback");
+
+/**
+ * The native shells (`native/README.md`) keep frames playing on their own, so the silent track is
+ * not used there: on iOS it would compete with the frame's audio for the one media session.
+ */
+const native = Capacitor.isNativePlatform();
 
 let audio: HTMLAudioElement | null = null;
 let held = false;
@@ -52,6 +65,7 @@ function element(): HTMLAudioElement {
 
 /** Call from a tap/click handler: unlocks playback on iOS, which only allows starting media inside a gesture. */
 export function primeBackgroundAudio() {
+  if (native) return;
   const el = element();
   el.play()
     .then(() => {
@@ -62,6 +76,7 @@ export function primeBackgroundAudio() {
 
 /** Keeps the audio session alive while a player is open. Returns the release function. */
 export function holdBackgroundAudio(card: PlaylistCard): () => void {
+  if (native) return holdNativePlayback(card);
   held = true;
   const el = element();
   void el.play().catch(() => {
@@ -95,4 +110,11 @@ export function holdBackgroundAudio(card: PlaylistCard): () => void {
       session.playbackState = "none";
     }
   };
+}
+
+/** Android keeps a foreground media service (and its notification) while a player is open. */
+function holdNativePlayback(card: PlaylistCard): () => void {
+  if (Capacitor.getPlatform() !== "android") return () => {};
+  void Playback.start({ title: card.titleEn ?? card.title, artist: card.creator ?? card.domain }).catch(() => {});
+  return () => void Playback.stop().catch(() => {});
 }

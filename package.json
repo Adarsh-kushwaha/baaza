@@ -8,14 +8,21 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "collage": "node scripts/build-collage.mjs"
+    "collage": "node scripts/build-collage.mjs",
+    "native:sync": "cap sync",
+    "ios": "cap open ios",
+    "android": "cap open android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "@capacitor/ios": "^8.5.2",
     "next": "16.3.5",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@capacitor/cli": "^8.5.2",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22.20.4",
     "@types/react": "^19",
