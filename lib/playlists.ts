@@ -127,8 +127,8 @@ export function frameUrl(card: Pick<PlaylistCard, "url">): string {
   return card.url.replace(/^http:\/\//, "https://");
 }
 
-/** Featured at the top of Home and pinned in My Playlists. */
-const FEATURED_SLUGS = ["raju-mistri", "deluxe-salon", "hornokplease"];
+/** The maker's own playlists: always first in Featured on Home, and pinned in My Playlists. */
+const FEATURED_SLUGS = ["raju-mistri", "deluxe-salon"];
 
 export const featuredCards: readonly PlaylistCard[] = FEATURED_SLUGS.map((slug) => {
   const card = bySlug.get(slug);
@@ -137,3 +137,31 @@ export const featuredCards: readonly PlaylistCard[] = FEATURED_SLUGS.map((slug) 
 });
 
 export const isFeatured = (slug: string) => FEATURED_SLUGS.includes(slug);
+
+/** Sites that refuse to play inside the app; never picked for Featured. */
+const NEVER_FEATURED = ["chhath-geet", "hornokplease", "cutting-chai-xi", "chaitapri", "mandir-radio"];
+
+export const FEATURED_PICKS = 4;
+
+/**
+ * Random Featured picks: `FEATURED_PICKS` categories chosen at random, one random playable
+ * playlist from each. Skips the maker's pinned playlists, offline cards and NEVER_FEATURED.
+ */
+export function pickFeatured(random: () => number = Math.random): PlaylistCard[] {
+  const pools = [...cardsByCategory.values()]
+    .map((cards) => cards.filter((c) => c.status === "live" && !isFeatured(c.slug) && !NEVER_FEATURED.includes(c.slug)))
+    .filter((cards) => cards.length > 0);
+  return shuffle(pools, random)
+    .slice(0, FEATURED_PICKS)
+    .map((cards) => cards[Math.floor(random() * cards.length)]);
+}
+
+/** Fisher–Yates on a copy. */
+function shuffle<T>(items: readonly T[], random: () => number): T[] {
+  const out = [...items];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { allCards, cardsByCategory, creators, featuredCards, frameUrl, getCardBySlug, imageSrc, searchCards } from "./playlists";
+import { allCards, cardsByCategory, creators, featuredCards, FEATURED_PICKS, frameUrl, getCardBySlug, imageSrc, pickFeatured, searchCards } from "./playlists";
 
 describe("cardsByCategory", () => {
   it("orders categories biggest first", () => {
@@ -179,7 +179,29 @@ describe("maker's playlists", () => {
 
 describe("featuredCards", () => {
   it("features the maker's playlists, in order, all live", () => {
-    expect(featuredCards.map((c) => c.slug)).toEqual(["raju-mistri", "deluxe-salon", "hornokplease"]);
+    expect(featuredCards.map((c) => c.slug)).toEqual(["raju-mistri", "deluxe-salon"]);
     for (const card of featuredCards) expect(card.status).toBe("live");
+  });
+});
+
+describe("pickFeatured", () => {
+  const blocked = ["chhath-geet", "hornokplease", "cutting-chai-xi", "chaitapri", "mandir-radio"];
+
+  it("picks live playlists from distinct categories, never pinned or blocked ones", () => {
+    for (let run = 0; run < 500; run++) {
+      const picks = pickFeatured();
+      expect(picks).toHaveLength(FEATURED_PICKS);
+      expect(new Set(picks.map((c) => c.category)).size).toBe(FEATURED_PICKS);
+      for (const card of picks) {
+        expect(card.status).toBe("live");
+        expect(blocked).not.toContain(card.slug);
+        expect(featuredCards).not.toContain(card);
+      }
+    }
+  });
+
+  it("varies between calls", () => {
+    const seen = new Set(Array.from({ length: 50 }, () => pickFeatured().map((c) => c.slug).join()));
+    expect(seen.size).toBeGreaterThan(1);
   });
 });

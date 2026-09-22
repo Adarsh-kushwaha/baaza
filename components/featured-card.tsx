@@ -5,12 +5,18 @@ import { Cover } from "./cover";
 import { FavoriteButton } from "./favorite-button";
 
 /** Large Spotify-style hero tile: full-width art with a green play button, title below. */
-export function FeaturedCard({ card }: { card: PlaylistCard }) {
+type FeaturedCardProps = {
+  card: PlaylistCard;
+  /** Off when the same card is also shown elsewhere on the page (view-transition names must be unique). */
+  morph?: boolean;
+};
+
+export function FeaturedCard({ card, morph = true }: FeaturedCardProps) {
   return (
     <div className="relative w-[44vw] max-w-56 shrink-0 snap-start">
       <Link href={`/play/${card.slug}`} className="pressable group block rounded-card">
         <div className="relative">
-          <Cover card={card} sizes="(min-width: 510px) 224px, 44vw" morph eager className="shadow-xl shadow-black/60" />
+          <Cover card={card} sizes="(min-width: 510px) 224px, 44vw" morph={morph} eager className="shadow-xl shadow-black/60" />
           <span
             aria-hidden="true"
             className="absolute bottom-2 right-2 grid h-11 w-11 place-items-center rounded-pill bg-accent shadow-lg shadow-black/50"

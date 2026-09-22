@@ -5,7 +5,6 @@ export const KEYS = {
   session: "baaza.session",
   favorites: "baaza.favorites",
   recentSearches: "baaza.recentSearches",
-  nonEmbeddable: "baaza.nonEmbeddable",
   installBarDismissed: "baaza.installBarDismissed",
 } as const;
 

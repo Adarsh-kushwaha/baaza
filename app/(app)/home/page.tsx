@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Card } from "@/components/card";
-import { FeaturedCard } from "@/components/featured-card";
+import { FeaturedRow } from "@/components/featured-row";
 import { Greeting } from "@/components/greeting";
 import { HeaderSearch } from "@/components/header-search";
 import { InstallBar } from "@/components/install-bar";
-import { cardsByCategory, featuredCards, isFeatured } from "@/lib/playlists";
+import { cardsByCategory, isFeatured } from "@/lib/playlists";
 
 export const metadata: Metadata = { title: "Home" };
 
@@ -34,9 +34,7 @@ export default function HomePage() {
         </h2>
         {/* `relative` keeps the scrolled-out tiles from widening the page on mobile. */}
         <div className="no-scrollbar relative mt-3 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-1">
-          {featuredCards.map((card) => (
-            <FeaturedCard key={card.slug} card={card} />
-          ))}
+          <FeaturedRow />
         </div>
       </section>
 
