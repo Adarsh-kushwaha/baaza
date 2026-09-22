@@ -22,11 +22,11 @@ A Spotify-style, installable web app that brings 100+ community-made Indian play
 ## Screenshots
 
 <p align="center">
-  <img src="docs/screenshots/sign-in.png" alt="Baaza sign-in screen with a collage of playlist covers" width="100%" />
+  <img src="img1.png" alt="Baaza sign-in screen with a collage of playlist covers" width="100%" />
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/home.png" alt="Baaza home feed with Featured, Journeys and Shops & Addas rails" width="100%" />
+  <img src="img2.png" alt="Baaza home feed with Featured, Journeys and Shops & Addas rails" width="100%" />
 </p>
 
 ## Why Baaza?
